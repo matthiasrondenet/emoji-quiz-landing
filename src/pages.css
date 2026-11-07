@@ -1,0 +1,39 @@
+/* Support page */
+.support-hero .wrap { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; padding-block: 56px 32px; }
+.support-hero .intro { flex: 999 1 520px; min-width: 0; }
+.support-hero h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 800; letter-spacing: -0.04em; margin: 10px 0 14px; }
+.mail-card { flex: 1 1 360px; min-width: 0; background: var(--ink); color: var(--bg); border-radius: 24px; padding: 26px; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.mail-card .eyebrow { color: var(--sun); }
+.mail-card code { font: 600 18px/1.4 ui-monospace, 'SF Mono', Menlo, monospace; overflow-wrap: anywhere; }
+.mail-card p { margin: 0; font-size: 14px; color: color-mix(in srgb, var(--bg) 72%, var(--ink)); }
+.help-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding-block: 24px 8px; }
+.help-card { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 26px; display: flex; flex-direction: column; gap: 10px; }
+.help-card .tag { align-self: flex-start; font-size: 12px; font-weight: 800; border-radius: 999px; padding: 4px 10px; color: #1E1A15; }
+.help-card h3 { font-family: var(--ui); font-size: 18px; letter-spacing: 0; margin-top: 6px; }
+.help-card p { margin: 0; color: var(--ink-soft); font-size: 15px; }
+.help-card a, .doc-note a { color: var(--coral); font-weight: 600; }
+
+/* Delete-account page */
+.options { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; padding-block: 40px 20px; }
+.option { background: var(--surface); border: 1px solid var(--line); border-radius: 26px; padding: 30px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.option h2 { font-size: 32px; font-weight: 800; }
+.option p { margin: 0; }
+.option .steps { margin: 0; }
+.option .copy-row { background: var(--bg); margin: 0; }
+.option .template { margin: 0; }
+.muted { color: var(--ink-soft); }
+.doc-note { max-width: 52em; margin: 0; color: var(--ink-soft); }
+.wide { padding-top: 24px; }
+.wide h2 { font-size: clamp(28px, 3.4vw, 36px); font-weight: 800; margin-bottom: 18px; }
+.wide .two-col { margin-top: 0; }
+.wide .two-col ul { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+
+/* Misc */
+.mail-card .btn-coral { padding: 12px 16px; font-size: 14px; }
+.nav a[aria-current='page'] { color: var(--ink); }
+.skip-link { position: absolute; left: -999px; top: 8px; z-index: 20; background: var(--ink); color: var(--bg); padding: 8px 14px; border-radius: 10px; }
+.skip-link:focus { left: 8px; }
+.foot-note { margin: 10px 0 0; }
+
+.section--flush { padding-top: 24px; }
+.section--flush-bottom { padding-bottom: 0; }
