@@ -17,6 +17,6 @@ Fill in the placeholders in `src/constants.ts` (they render highlighted in yello
 
 ## Deployment
 
-Pushing to `main` deploys to GitHub Pages (`.github/workflows/deploy.yml`). The workflow sets `VITE_BASE=/emoji-quiz-landing/`; use `/` with a custom domain.
+Pushing to `main` deploys to GitHub Pages (`.github/workflows/deploy.yml`). The workflow sets `VITE_BASE=/` because the site is served from the custom domain `emoji-quiz.yasd.io`. If you go back to the default `github.io/emoji-quiz-landing/` URL, use `/emoji-quiz-landing/` instead.
 
 Screenshots live in `src/screenshots/`.

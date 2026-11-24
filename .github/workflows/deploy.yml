@@ -31,8 +31,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # Project Pages are served from /<repo>/. Use / instead with a custom domain.
-          VITE_BASE: /emoji-quiz-landing/
+          # Custom domain (emoji-quiz.yasd.io) is served from the root.
+          VITE_BASE: /
 
       - uses: actions/upload-pages-artifact@v3
         with:
