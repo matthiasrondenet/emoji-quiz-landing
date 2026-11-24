@@ -82,7 +82,24 @@ h1, h2, h3 { font-family: var(--display); line-height: 1.05; letter-spacing: -0.
 .nav a { text-decoration: none; color: var(--ink-soft); }
 .nav a:hover { color: var(--ink); }
 .head-cta { padding: 9px 16px !important; font-size: 14px !important; }
-@media (max-width: 760px) { .nav { display: none; } .head-cta { margin-left: auto; } }
+.lang {
+  display: flex; flex: none; padding: 2px; border: 2px solid var(--line); border-radius: 999px;
+  font-weight: 800; font-size: 13px;
+}
+.lang button {
+  border: 0; background: none; color: var(--ink-soft); font: inherit;
+  padding: 4px 10px; border-radius: 999px; cursor: pointer;
+}
+.lang button[aria-pressed='true'] { background: var(--ink); color: var(--bg); }
+@media (max-width: 760px) {
+  .nav { display: none; }
+  .lang { margin-left: auto; }
+}
+@media (max-width: 480px) {
+  .site-head .wrap { gap: 10px; }
+  .brand-icon { display: none; }
+  .lang button { padding: 4px 8px; }
+}
 
 /* Buttons */
 .btn {

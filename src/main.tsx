@@ -9,6 +9,7 @@ import { Home } from './components/Home.tsx';
 import { Privacy } from './components/Privacy.tsx';
 import { Support } from './components/Support.tsx';
 import { Terms } from './components/Terms.tsx';
+import { I18nProvider } from './i18n.tsx';
 
 const pages: Record<string, React.FC> = {
   home: Home,
@@ -24,6 +25,8 @@ const Page = pages[document.body.dataset.page ?? 'home'] ?? Home;
 
 createRoot(root).render(
   <StrictMode>
-    <Page />
+    <I18nProvider>
+      <Page />
+    </I18nProvider>
   </StrictMode>
 );

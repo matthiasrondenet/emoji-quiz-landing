@@ -1,39 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
-
-interface Puzzle {
-  emojis: string;
-  category: string;
-  answer: string;
-  options: string[];
-}
-
-const PUZZLES: Puzzle[] = [
-  { emojis: '🦁👑', category: 'Movie', answer: 'The Lion King', options: ['Madagascar', 'The Lion King', 'Robin Hood', 'Zootopia'] },
-  { emojis: '🚢🧊💔', category: 'Movie', answer: 'Titanic', options: ['Titanic', 'Frozen', 'Life of Pi', 'The Abyss'] },
-  { emojis: '🧽🍍🌊', category: 'TV', answer: 'SpongeBob', options: ['Finding Nemo', 'Moana', 'SpongeBob', 'Aquaman'] },
-  { emojis: '👑🎤🎸', category: 'Music', answer: 'Queen', options: ['Prince', 'Queen', 'Madonna', 'ABBA'] },
-  { emojis: '🐺🏰❄️🐉', category: 'TV', answer: 'Game of Thrones', options: ['The Witcher', 'Vikings', 'Frozen', 'Game of Thrones'] },
-  { emojis: '👧🐰⏰🎩', category: 'Book', answer: 'Alice in Wonderland', options: ['Peter Pan', 'Matilda', 'Alice in Wonderland', 'Coraline'] },
-  { emojis: '🦖🏝️🚙', category: 'Movie', answer: 'Jurassic Park', options: ['Jurassic Park', 'King Kong', 'Jumanji', 'Godzilla'] },
-  { emojis: '🧙‍♂️💍🌋', category: 'Movie', answer: 'The Lord of the Rings', options: ['Harry Potter', 'The Lord of the Rings', 'Narnia', 'Willow'] },
-];
+import { quiz } from '../copy/quiz.ts';
+import { useI18n } from '../i18n.tsx';
 
 export const Quiz: React.FC = () => {
+  const { lang } = useI18n();
+  const t = quiz[lang];
   const [index, setIndex] = useState(0);
-  const [picked, setPicked] = useState<string | null>(null);
+  // Index of the chosen option, so the state survives a language switch.
+  const [picked, setPicked] = useState<number | null>(null);
   const [solved, setSolved] = useState(0);
   const [run, setRun] = useState(0);
   const nextRef = useRef<HTMLButtonElement>(null);
 
-  const puzzle = PUZZLES[index];
+  const puzzle = t.puzzles[index];
   const answered = picked !== null;
-  const last = index === PUZZLES.length - 1;
+  const last = index === t.puzzles.length - 1;
 
   useEffect(() => {
     if (answered) nextRef.current?.focus({ preventScroll: true });
   }, [answered]);
 
-  const pick = (option: string) => {
+  const pick = (option: number) => {
     if (answered) return;
     setPicked(option);
     if (option === puzzle.answer) {
@@ -55,7 +42,7 @@ export const Quiz: React.FC = () => {
     setPicked(null);
   };
 
-  const stateOf = (option: string) => {
+  const stateOf = (option: number) => {
     if (!answered) return '';
     if (option === puzzle.answer) return ' right';
     return option === picked ? ' wrong' : '';
@@ -64,35 +51,30 @@ export const Quiz: React.FC = () => {
   return (
     <div className="try">
       <div>
-        <div className="eyebrow">Try one right here</div>
-        <h2>No download needed for this one.</h2>
-        <p>
-          Read the emojis, pick the title. In the app you spell it out with letter tiles against the
-          clock, with hints when you&apos;re stuck.
-        </p>
+        <div className="eyebrow">{t.eyebrow}</div>
+        <h2>{t.title}</h2>
+        <p>{t.text}</p>
         <div className="score" aria-live="polite">
-          <span>{solved} solved</span>
-          <span>🔥 {run} in a row</span>
+          <span>{t.solved(solved)}</span>
+          <span>{t.inARow(run)}</span>
         </div>
       </div>
       <div className="board">
         <div className="board-top">
-          <span>
-            Puzzle {index + 1} / {PUZZLES.length}
-          </span>
-          <span className="board-cat">{puzzle.category}</span>
+          <span>{t.puzzleOf(index + 1, t.puzzles.length)}</span>
+          <span className="board-cat">{t.categories[puzzle.category]}</span>
         </div>
-        <div className="board-emoji" aria-label="Emoji clue">
+        <div className="board-emoji" aria-label={t.emojiClue}>
           {puzzle.emojis}
         </div>
         <div className="choices">
-          {puzzle.options.map((option) => (
+          {puzzle.options.map((option, i) => (
             <button
               key={option}
               type="button"
-              className={`choice${stateOf(option)}`}
+              className={`choice${stateOf(i)}`}
               disabled={answered}
-              onClick={() => pick(option)}
+              onClick={() => pick(i)}
             >
               {option}
             </button>
@@ -100,11 +82,11 @@ export const Quiz: React.FC = () => {
         </div>
         <div className="board-foot">
           <span className="verdict" aria-live="polite">
-            {answered ? (picked === puzzle.answer ? 'Nailed it!' : `It was ${puzzle.answer}.`) : ''}
+            {answered ? (picked === puzzle.answer ? t.nailedIt : t.itWas(puzzle.options[puzzle.answer])) : ''}
           </span>
           {answered && (
             <button ref={nextRef} type="button" className="btn btn-coral next" onClick={next}>
-              {last ? 'Play again ↺' : 'Next puzzle →'}
+              {last ? t.playAgain : t.next}
             </button>
           )}
         </div>

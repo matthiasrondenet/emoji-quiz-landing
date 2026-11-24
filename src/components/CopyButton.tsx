@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { common } from '../copy/common.ts';
+import { useI18n } from '../i18n.tsx';
 
 interface CopyButtonProps {
   text: string;
@@ -6,6 +8,8 @@ interface CopyButtonProps {
 }
 
 export const CopyButton: React.FC<CopyButtonProps> = ({ text, className = 'btn btn-ink btn-sm' }) => {
+  const { lang } = useI18n();
+  const c = common[lang];
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
@@ -22,7 +26,7 @@ export const CopyButton: React.FC<CopyButtonProps> = ({ text, className = 'btn b
 
   return (
     <button type="button" className={className} onClick={copy} aria-live="polite">
-      {copied ? 'Copied ✓' : 'Copy address'}
+      {copied ? c.copied : c.copy}
     </button>
   );
 };

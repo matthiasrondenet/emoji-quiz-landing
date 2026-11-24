@@ -1,10 +1,14 @@
 import React from 'react';
 import { PLAY_URL } from '../constants.ts';
+import { common } from '../copy/common.ts';
+import { useI18n } from '../i18n.tsx';
 
-export const PlayButton: React.FC<{ compact?: boolean }> = ({ compact = false }) =>
-  compact ? (
+export const PlayButton: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
+  const { lang } = useI18n();
+  const c = common[lang];
+  return compact ? (
     <a className="btn btn-coral head-cta" href={PLAY_URL} target="_blank" rel="noopener noreferrer">
-      Get the app
+      {c.getApp}
     </a>
   ) : (
     <a className="btn btn-ink play-btn" href={PLAY_URL} target="_blank" rel="noopener noreferrer">
@@ -15,8 +19,9 @@ export const PlayButton: React.FC<{ compact?: boolean }> = ({ compact = false })
         />
       </svg>
       <span>
-        <small>Get it on</small>
+        <small>{c.getItOn}</small>
         <b>Google Play</b>
       </span>
     </a>
   );
+};

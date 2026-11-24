@@ -12,10 +12,11 @@ interface DocPageProps {
   lead: string;
   meta?: React.ReactNode;
   toc?: TocItem[];
+  tocLabel?: string;
   children: React.ReactNode;
 }
 
-export const DocHero: React.FC<Omit<DocPageProps, 'toc' | 'children'>> = ({
+export const DocHero: React.FC<Pick<DocPageProps, 'eyebrow' | 'title' | 'lead' | 'meta'>> = ({
   eyebrow,
   title,
   lead,
@@ -31,13 +32,13 @@ export const DocHero: React.FC<Omit<DocPageProps, 'toc' | 'children'>> = ({
   </div>
 );
 
-export const DocPage: React.FC<DocPageProps> = ({ toc, children, ...hero }) => (
+export const DocPage: React.FC<DocPageProps> = ({ toc, tocLabel, children, ...hero }) => (
   <Layout>
     <DocHero {...hero} />
     <div className="wrap doc-layout">
       {toc && (
-        <nav className="toc" aria-label="On this page">
-          <b>On this page</b>
+        <nav className="toc" aria-label={tocLabel}>
+          <b>{tocLabel}</b>
           <ol>
             {toc.map((item) => (
               <li key={item.id}>
